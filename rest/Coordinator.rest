@@ -1,0 +1,9 @@
+### 구현1
+GET http://localhost:8080/categories/products/cheapest
+Accept: application/json
+
+### 구현2
+GET http://localhost:8080/brands/cheapest/products/collection
+
+### 구현3
+GET http://localhost:8080/categories/Tops/products/pricing
