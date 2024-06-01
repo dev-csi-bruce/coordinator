@@ -2,7 +2,6 @@ package com.musinsa.coordinator.model
 
 import com.musinsa.coordinator.dto.BrandAndPrice
 import com.musinsa.coordinator.dto.BrandCollection
-import com.musinsa.coordinator.dto.GetCheapestBrandCollectionDTO
 import com.musinsa.coordinator.dto.ProductDTO
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType

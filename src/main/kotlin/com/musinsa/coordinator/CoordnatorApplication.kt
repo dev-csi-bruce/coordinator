@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class CoordinatorApplication
 
 fun main(args: Array<String>) {
-	runApplication<CoordinatorApplication>(*args)
+    runApplication<CoordinatorApplication>(*args)
 }
