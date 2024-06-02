@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ProductRepository : JpaRepository<Product, Int> {
-    fun findAllByCategory(category: Category): List<Product>
-
     @Query("SELECT p FROM Product p WHERE p.category = :category AND p.brand = :brand ORDER BY p.price ASC LIMIT 1")
     fun findCheapestProductByCategoryAndBrand(category: Category, brand: Brand): Product?
 

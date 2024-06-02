@@ -1,6 +1,7 @@
 package com.musinsa.coordinator
 
 import com.musinsa.coordinator.dto.ProductDTO
+import com.musinsa.coordinator.dto.admin.AddBrandDTO
 import com.musinsa.coordinator.dto.admin.AddProductDTO
 import com.musinsa.coordinator.dto.admin.BrandDTO
 import com.musinsa.coordinator.dto.admin.DeleteBrandDTO
@@ -35,29 +36,30 @@ class CoordinatorApplicationAdminTests {
 
     @Test
     @Order(1)
-    fun `test add new brand`() {
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.APPLICATION_JSON
+    fun `구현4-1 - 브랜드 추가`() {
+        val request = AddBrandDTO.Request(brand = BrandDTO(name = "Nike"))
+        val response = restTemplate.postForEntity("/admin/brands", request, AddBrandDTO.Response::class.java)
+        val expectedResponse = AddBrandDTO.Response(brand = BrandDTO(id = response.body!!.brand.id, name = "Nike"))
 
-        val request = HttpEntity("""{"brand": {"name": "Nike"}}""", headers)
-        val response = restTemplate.postForEntity("/admin/brands", request, String::class.java)
         assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(expectedResponse, response.body)
     }
 
     @Test
     @Order(2)
-    fun `test add new product`() {
+    fun `구현4-2 - 상품 추가`() {
         val request = AddProductDTO.Request(product = ProductDTO(name = "T-shirt", price = 10000, brandName = "A", categoryName = "Tops"))
-        val response = restTemplate.postForObject("/admin/products", request, AddProductDTO.Response::class.java)
+        val response = restTemplate.postForEntity("/admin/products", request, AddProductDTO.Response::class.java)
         val expectedResponse = AddProductDTO.Response(
-            product = ProductDTO(id = response.product.id, name = "T-shirt", price = 10000, brandName = "A", categoryName = "Tops")
+            product = ProductDTO(id = response.body!!.product.id, name = "T-shirt", price = 10000, brandName = "A", categoryName = "Tops")
         )
-        assertEquals(expectedResponse, response)
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(expectedResponse, response.body)
     }
 
     @Test
     @Order(3)
-    fun `test update product`() {
+    fun `구현4-3 - 상품 업데이트`() {
         val request = UpdateProductDTO.Reqeust(product = ProductDTO(id = 1, name = "T-shirt", price = 10000, brandName = "B", categoryName = "Tops"))
         val response = restTemplate.patchForObject("/admin/products", request, UpdateProductDTO.Response::class.java)
 
@@ -69,8 +71,7 @@ class CoordinatorApplicationAdminTests {
 
     @Test
     @Order(4)
-    fun `test update brand`() {
-
+    fun `구현4-4 브랜드 업데이트`() {
         val request = UpdateBrandDTO.Request(brand = BrandDTO(id = 1, name = "M"))
         val response = restTemplate.patchForObject("/admin/brands", request, UpdateBrandDTO.Response::class.java)
 
@@ -83,7 +84,7 @@ class CoordinatorApplicationAdminTests {
 
     @Test
     @Order(5)
-    fun `test delete product`() {
+    fun `구현4-5 상품 삭제`() {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
 
@@ -97,7 +98,7 @@ class CoordinatorApplicationAdminTests {
 
     @Test
     @Order(6)
-    fun `test delete brand`() {
+    fun `구현4-6 브랜드 삭제`() {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
 
