@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface BrandRepository : JpaRepository<Brand, Int> {
     override fun findAll(): List<Brand>
+    fun findByName(name: String): Brand?
 }

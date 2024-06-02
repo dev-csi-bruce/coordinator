@@ -4,6 +4,72 @@ Accept: application/json
 
 ### 구현2
 GET http://localhost:8080/brands/cheapest/products/collection
+Accept: application/json
 
 ### 구현3
 GET http://localhost:8080/categories/Tops/products/pricing
+Accept: application/json
+
+### 구현4-1
+POST http://localhost:8080/admin/brands
+Content-Type: application/json
+
+{
+  "brand": {
+    "name": "Nike"
+  }
+}
+
+### 구현4-2
+POST http://localhost:8080/admin/products
+Content-Type: application/json
+
+{
+  "product": {
+    "name": "T-shirt",
+    "price": 10000,
+    "brandName": "Nike",
+    "categoryName": "Tops"
+  }
+}
+
+### 구현4-3
+PATCH http://localhost:8080/admin/products
+Content-Type: application/json
+
+{
+  "product": {
+    "id": 1,
+    "name": "T-shirt",
+    "price": 10000,
+    "brandName": "A",
+    "categoryName": "Tops"
+  }
+}
+
+### 구현4-4
+PATCH http://localhost:8080/admin/brands
+Content-Type: application/json
+
+{
+  "brand": {
+    "id": 1,
+    "name": "Nike"
+  }
+}
+
+### 구현4-5
+DELETE http://localhost:8080/admin/products
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 구현4-6
+DELETE http://localhost:8080/admin/brands
+Content-Type: application/json
+
+{
+  "id": 1
+}

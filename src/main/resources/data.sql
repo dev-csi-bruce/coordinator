@@ -1,21 +1,21 @@
-INSERT INTO Category (id, name) VALUES (1, 'Tops');
-INSERT INTO Category (id, name) VALUES (2, 'Outerwear');
-INSERT INTO Category (id, name) VALUES (3, 'Pants');
-INSERT INTO Category (id, name) VALUES (4, 'Sneakers');
-INSERT INTO Category (id, name) VALUES (5, 'Bags');
-INSERT INTO Category (id, name) VALUES (6, 'Hats');
-INSERT INTO Category (id, name) VALUES (7, 'Socks');
-INSERT INTO Category (id, name) VALUES (8, 'Accessories');
+INSERT INTO Category (name) VALUES ('Tops');
+INSERT INTO Category (name) VALUES ('Outerwear');
+INSERT INTO Category (name) VALUES ('Pants');
+INSERT INTO Category (name) VALUES ('Sneakers');
+INSERT INTO Category (name) VALUES ('Bags');
+INSERT INTO Category (name) VALUES ('Hats');
+INSERT INTO Category (name) VALUES ('Socks');
+INSERT INTO Category (name) VALUES ('Accessories');
 
-INSERT INTO Brand (id, name) VALUES (1, 'A');
-INSERT INTO Brand (id, name) VALUES (2, 'B');
-INSERT INTO Brand (id, name) VALUES (3, 'C');
-INSERT INTO Brand (id, name) VALUES (4, 'D');
-INSERT INTO Brand (id, name) VALUES (5, 'E');
-INSERT INTO Brand (id, name) VALUES (6, 'F');
-INSERT INTO Brand (id, name) VALUES (7, 'G');
-INSERT INTO Brand (id, name) VALUES (8, 'H');
-INSERT INTO Brand (id, name) VALUES (9, 'I');
+INSERT INTO Brand (name) VALUES ('A');
+INSERT INTO Brand (name) VALUES ('B');
+INSERT INTO Brand (name) VALUES ('C');
+INSERT INTO Brand (name) VALUES ('D');
+INSERT INTO Brand (name) VALUES ('E');
+INSERT INTO Brand (name) VALUES ('F');
+INSERT INTO Brand (name) VALUES ('G');
+INSERT INTO Brand (name) VALUES ('H');
+INSERT INTO Brand (name) VALUES ('I');
 
 -- 브랜드 A
 INSERT INTO Product (name, category_id, brand_id, price) VALUES ('상의', 1, 1, 11200);

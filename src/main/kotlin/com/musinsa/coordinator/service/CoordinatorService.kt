@@ -4,6 +4,8 @@ import com.musinsa.coordinator.dto.BrandCollection
 import com.musinsa.coordinator.dto.GetCheapestBrandCollectionDTO
 import com.musinsa.coordinator.dto.GetCheapestProductByCategoryDTO
 import com.musinsa.coordinator.dto.GetMinMaxPricedProductsByCategoryDTO
+import com.musinsa.coordinator.exception.CoordinatorServerException
+import com.musinsa.coordinator.exception.ErrorCode.*
 import com.musinsa.coordinator.model.Brand
 import com.musinsa.coordinator.model.Category
 import com.musinsa.coordinator.model.Product
@@ -40,14 +42,14 @@ class CoordinatorService(
         val allCategories = categoryRepository.findAll()
         // 브랜드별 최저가 상품 컬랙션을 조회
         val brandToCheapestCollectionMap = allBrands.map { brand ->
-            brand to allCategories.map { category ->
+            brand to allCategories.mapNotNull { category ->
                 getCheapestProductByBrandAndCategory(brand, category)
             }
         }.toMap()
         // 그 중 컬랙션 가격이 가장 낮은 브랜드를 조회
-        val brandToCollectionMap = brandToCheapestCollectionMap.minByOrNull { (brand, collection) ->
+        val brandToCollectionMap = brandToCheapestCollectionMap.minByOrNull { (_, collection) ->
             collection.sumOf { it.price }
-        } ?: throw IllegalStateException("브랜드별 최저가 상품 컬랙션을 조회할 수 없습니다.")
+        } ?: throw CoordinatorServerException(CHEAPEST_BRAND_COLLECTION_NOT_FOUND)
 
         // 결과 출력
         return GetCheapestBrandCollectionDTO.Response(
@@ -61,14 +63,14 @@ class CoordinatorService(
         )
     }
 
-    private fun getCheapestProductByBrandAndCategory(brand: Brand, category: Category): Product {
+    private fun getCheapestProductByBrandAndCategory(brand: Brand, category: Category): Product? {
         // 브랜드, 카테고리별 최저가 상품을 조회
         return productRepository.findCheapestProductByCategoryAndBrand(category, brand)
     }
 
     fun getMinMaxPricedProductsByCategory(categoryName: String): GetMinMaxPricedProductsByCategoryDTO.Response {
         val category = categoryRepository.findByName(categoryName)
-            ?: throw IllegalArgumentException("카테고리 이름이 잘못되었습니다.")
+            ?: throw CoordinatorServerException(INVALID_CATEGORY_NAME)
         val cheapestProduct = productRepository.cheapestProductByCategory(category)
         val mostExpensiveProduct = productRepository.mostExpensiveProductByCategory(category)
 

@@ -31,12 +31,26 @@ class Product(
     var price: Int = price
         protected set
 
+    fun update(
+        name: String? = null,
+        price: Int? = null,
+        brand: Brand? = null,
+        category: Category? = null
+    ): Product {
+        name?.let { this.name = it }
+        price?.let { this.price = it }
+        brand?.let { this.brand = it }
+        category?.let { this.category = it }
+
+        return this
+    }
+
     fun toDto(): ProductDTO {
         return ProductDTO(
             id = id,
             name = name,
-            category = category.name,
-            brand = brand.name,
+            categoryName = category.name,
+            brandName = brand.name,
             price = price
         )
     }
