@@ -1,5 +1,5 @@
 
-## Musinsa Coordinator
+## Coordinator
 
 ---
 ### 구현범위
